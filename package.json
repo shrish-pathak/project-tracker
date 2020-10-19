@@ -1,0 +1,19 @@
+{
+  "name": "project-tracker",
+  "version": "1.0.0",
+  "description": "small project tracking web app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shrish-pathak/project-tracker.git"
+  },
+  "author": "SHRISH PATHAK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shrish-pathak/project-tracker/issues"
+  },
+  "homepage": "https://github.com/shrish-pathak/project-tracker#readme"
+}
