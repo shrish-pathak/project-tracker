@@ -8,6 +8,8 @@ const mongoURI = require('./config/keys').mongoURI
 const passport = require('passport')
 
 const users = require('./routes/users')
+const projects = require('./routes/projects')
+const tasks = require('./routes/tasks')
 
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useFindAndModify', false)
@@ -33,6 +35,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/api/users', users)
+app.use('/api/projects', projects)
+app.use('/api/tasks', tasks)
 
 const port = process.env.PORT || 4000
 app.listen(port, () => { console.log(`server running on ${port}`) })
