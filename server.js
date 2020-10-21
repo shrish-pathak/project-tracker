@@ -4,6 +4,7 @@ const app = express()
 
 const mongoose = require('mongoose')
 const mongoURI = require('./config/keys').mongoURI
+const server = require('http').Server(app)
 
 const passport = require('passport')
 
@@ -44,4 +45,36 @@ app.use('/api/messages/', messages)
 
 
 const port = process.env.PORT || 4000
-app.listen(port, () => { console.log(`server running on ${port}`) })
+const io = require('socket.io')(server)
+
+const { addMessage } = require('./controllers/messages')
+const { getChat } = require('./controllers/chats')
+const UserSchema = require('./models/USER')
+
+io.on('connection', (socket) => {
+    socket.on('joinRoom', (data) => {
+        console.log(data)
+
+        const chat = getChat(data)
+
+        socket.join(data.id)
+
+        // socket.emit('message', data)
+
+        // socket.broadcast.to(data.id).emit('message', data)
+
+        // io.to(data.id).emit("roomUsers", data)
+        // io.emit('chatid123',data)
+        // socket.to(data.id).emit('chat', data)
+    })
+
+    socket.on('chatMessage', async msg => {
+        console.log(msg)
+        addMessage(msg)
+        const user = await UserSchema.findOne({ _id: msg.author }).select({ _id: 0, email: 1 })
+        msg.author = user
+        msg.createdAt = new Date().toJSON()
+        io.to(msg.chatId).emit('message', msg)
+    })
+})
+server.listen(port, () => { console.log(`server running on ${port}`) })
