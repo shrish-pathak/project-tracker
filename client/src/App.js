@@ -12,6 +12,8 @@ import Signup from './component/signup'
 import Dashboard from './component/dashboard'
 import ProjectEditor from './component/projectEditor'
 import TaskEditor from './component/taskEditor'
+import AddChat from './component/addChat'
+import Messages from './component/messages'
 
 import { setAuthToken } from './utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
@@ -42,6 +44,8 @@ export default class App extends Component {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/project" component={ProjectEditor} />
           <Route exact path="/task" component={TaskEditor} />
+          <Route exact path="/addchat" component={AddChat} />
+          <Route exact path="/messages" component={Messages} />
         </Router>
       </Provider>
     )
